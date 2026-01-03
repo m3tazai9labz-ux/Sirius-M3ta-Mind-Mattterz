@@ -164,15 +164,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const cosmicCircle = document.querySelector('.cosmic-circle');
     
     if (cosmicCircle) {
+        let rafId = null;
+        let targetX = 0;
+        let targetY = 0;
+        
         document.addEventListener('mousemove', function(e) {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
+            targetX = (e.clientX / window.innerWidth - 0.5) * 20;
+            targetY = (e.clientY / window.innerHeight - 0.5) * 20;
             
-            const moveX = (mouseX - 0.5) * 20;
-            const moveY = (mouseY - 0.5) * 20;
-            
-            cosmicCircle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            if (!rafId) {
+                rafId = requestAnimationFrame(updateCosmicCircle);
+            }
         });
+        
+        function updateCosmicCircle() {
+            cosmicCircle.style.transform = `translate(${targetX}px, ${targetY}px)`;
+            rafId = null;
+        }
     }
 
     // ===================================
@@ -206,10 +214,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===================================
     // Dynamic Year in Footer
     // ===================================
-    const footerYear = document.querySelector('.footer-bottom p');
-    if (footerYear) {
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) {
         const currentYear = new Date().getFullYear();
-        footerYear.innerHTML = footerYear.innerHTML.replace('2026', currentYear);
+        currentYearSpan.textContent = currentYear;
     }
 
     // ===================================
@@ -295,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Enhanced Form Validation
 // ===================================
 function validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
 }
 
