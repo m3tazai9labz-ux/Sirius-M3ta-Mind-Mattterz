@@ -208,7 +208,17 @@ class MoonStruckAstrology:
             
         Returns:
             Compatibility information dictionary
+            
+        Raises:
+            ValueError: If either sign is not a valid zodiac sign
         """
+        # Validate inputs
+        valid_signs = list(self.ZODIAC_TRAITS.keys())
+        if sign1 not in valid_signs:
+            raise ValueError(f"Invalid zodiac sign: {sign1}. Must be one of {', '.join(valid_signs)}")
+        if sign2 not in valid_signs:
+            raise ValueError(f"Invalid zodiac sign: {sign2}. Must be one of {', '.join(valid_signs)}")
+        
         # Get elements for both signs
         info1 = self.ZODIAC_TRAITS.get(sign1, {})
         info2 = self.ZODIAC_TRAITS.get(sign2, {})
@@ -252,7 +262,15 @@ class MoonStruckAstrology:
             
         Returns:
             Daily insight message
+            
+        Raises:
+            ValueError: If sign is not a valid zodiac sign
         """
+        # Validate input
+        valid_signs = list(self.ZODIAC_TRAITS.keys())
+        if sign not in valid_signs:
+            raise ValueError(f"Invalid zodiac sign: {sign}. Must be one of {', '.join(valid_signs)}")
+        
         if date is None:
             date = datetime.date.today()
         

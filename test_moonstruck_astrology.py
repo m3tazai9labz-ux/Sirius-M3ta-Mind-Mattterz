@@ -186,6 +186,19 @@ class TestMoonStruckAstrology(unittest.TestCase):
         """Test that all 12 zodiac signs are present."""
         self.assertEqual(len(self.astrology.ZODIAC_SIGNS), 12)
         self.assertEqual(len(self.astrology.ZODIAC_TRAITS), 12)
+    
+    def test_invalid_sign_compatibility(self):
+        """Test that invalid zodiac signs raise ValueError in compatibility."""
+        with self.assertRaises(ValueError):
+            self.astrology.get_compatibility("InvalidSign", "Aries")
+        
+        with self.assertRaises(ValueError):
+            self.astrology.get_compatibility("Aries", "NotASign")
+    
+    def test_invalid_sign_daily_insight(self):
+        """Test that invalid zodiac signs raise ValueError in daily insight."""
+        with self.assertRaises(ValueError):
+            self.astrology.get_daily_insight("FakeSign")
 
 
 class TestMoonPhaseAccuracy(unittest.TestCase):
