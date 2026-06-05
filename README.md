@@ -123,7 +123,7 @@ The module calculates 8 distinct moon phases:
    Illumination: 78.3%
 
 📅 Example Birth Date: July 15, 1990
-♈︎ Zodiac Sign: Cancer
+♋︎ Zodiac Sign: Cancer
 
 🔮 Cancer Information:
    Element: Water
